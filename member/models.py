@@ -15,12 +15,9 @@ class Role(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
-    firstname = models.CharField(max_length=20)
-    lastname = models.CharField(max_length=20)
     codename = models.CharField(max_length=10)
     streaming = models.CharField(max_length=30,blank=True)
     tel = models.CharField(max_length=10,blank=True)
-    email = models.EmailField()
     province = models.ForeignKey(Country,models.SET_NULL,blank=True,null=True)
     game = models.ForeignKey(Game,models.SET_NULL,blank=True,null=True)
     role = models.ForeignKey(Role,models.SET_NULL,blank=True,null=True)

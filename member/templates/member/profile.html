@@ -6,14 +6,14 @@
 
     .column {}
 </style>
-{% extends 'member/base.html' %}
+{% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
 {% load staticfiles %}
 {% block body %}
 <br><br>
 <div class="container">
     <img src="{% static 'img/profile/devteam_dos.jpg' %}" style="width: 200px;" alt="">
     <p>
-        Pisol Ruenin
+        {{request.user.first_name}} {{request.user.last_name}}
     </p>
     <p>
         DosZa55+

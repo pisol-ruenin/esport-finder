@@ -1,7 +1,7 @@
 <style type="text/css">
 .hero-body{background-image: url('https://g2e-gamers2mediasl.netdna-ssl.com/wp-content/uploads/2017/08/Rlwallpaper.jpg')}
 </style>
-{% extends 'member/base_public.html' %}
+{% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
 {% load staticfiles %}
 {% block body %}
     <section class="hero is-medium is-primary">

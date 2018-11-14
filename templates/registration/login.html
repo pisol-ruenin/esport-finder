@@ -5,7 +5,7 @@
         max-width: 100%;
     }
 </style>
-{% extends 'member/base_public.html' %}
+{% extends '../base_public.html' %}
 {% load staticfiles %}
 {% block body %}
 <!-- <div class="container" style="margin-bottom:70px;">
@@ -106,15 +106,17 @@
     <div class="login-box">
         <h1>Login</h1>
         <br>
-        <form class="controls" action="#">
-            Username : <input class="label input" type=" text" name="username"><br>
-            Password : <input class="label input" type="password" name="password">
-            <br>
-            <button class="button" type="submit">Submit</button>
-            <button class="button" type="#">Cancel</button>
+        <form class="controls" method="post">
+        {% csrf_token %}
+        Username:
+        <input class="label input" id="id_username" name="username" type="text" /> 
+        Password:
+        <input class="label input" id="id_password" name="password" type="password" /> 
+        {{ form.errors }}
+        <button class="button" type="submit">Login</button>
         </form>
-
-        <p>Forgot password?</p>
+<!-- 
+        <p>Forgot password?</p> -->
     </div>
 </div>
 {% endblock %}

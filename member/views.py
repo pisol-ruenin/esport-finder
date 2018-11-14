@@ -1,20 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
+from member.forms import RegistrationForm
 # Create your views here.
 
 
-def index(request):
-    return render(request, 'member/index.html')
-
-
-def login(request):
-    return render(request, 'member/login.html')
-
-def signup(request):
-    return render(request, 'member/signup.html')
-
-def home(request):
-    return render(request, 'member/home.html')
+class SignUp(generic.CreateView):
+    form_class = RegistrationForm
+    success_url = reverse_lazy('login')
+    template_name = 'member/signup.html'
 
 def profile(request):
     return render(request, 'member/profile.html')

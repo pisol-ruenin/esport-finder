@@ -27,10 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+TIME_ZONE = 'Asia/Bangkok'
 # Application definition
 
 INSTALLED_APPS = [
+    'widget_tweaks',
     'member.apps.MemberConfig',
     'team.apps.TeamConfig',
     'django.contrib.admin',
@@ -56,7 +59,7 @@ ROOT_URLCONF = 'esports_port_thailand.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
