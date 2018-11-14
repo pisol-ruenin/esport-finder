@@ -15,13 +15,13 @@ class Role(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
-    codename = models.CharField(max_length=10)
+    codename = models.CharField(max_length=10,blank=True)
     streaming = models.CharField(max_length=30,blank=True)
     tel = models.CharField(max_length=10,blank=True)
     province = models.ForeignKey(Country,models.SET_NULL,blank=True,null=True)
     game = models.ForeignKey(Game,models.SET_NULL,blank=True,null=True)
     role = models.ForeignKey(Role,models.SET_NULL,blank=True,null=True)
-    birtdate = models.DateField()
+    birtdate = models.DateField(null=True)
 
 class GameRole(models.Model):
     game_name = models.ForeignKey(Game,on_delete=models.CASCADE)
