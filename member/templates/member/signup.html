@@ -1,0 +1,30 @@
+<style type="text/css">
+    .login-box {
+        margin: 50px 0px 0px 20px;
+        width: 300px;
+        max-width: 100%;
+    }
+</style>
+{% extends 'member/base_public.html' %}
+{% load staticfiles %}
+{% block body %}
+
+<div class="container">
+    <div class="login-box">
+        <h1>Sign Up</h1>
+        <br>
+        <form class="controls" action="#">
+            First Name : <input class="label input" type=" text" name="username"><br>
+            Last Name : <input class="label input" type=" text" name="username"><br>
+            Username : <input class="label input" type=" text" name="username"><br>
+            Password : <input class="label input" type="password" name="pwd1"><br>
+            Confirm Password : <input class="label input" type="password" name="pwd2">
+            <!-- ก้อง : คอนเฟิร์มพาส เดี๋ยวมาใส่ js ทีหลังครับ -->
+            <br>
+            <button class="button" type="submit">Submit</button>
+            <button class="button" type="#">Cancel</button>
+        </form>
+        <br><br><br>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+<style type="text/css">
+    .status {
+        background-color: #f1e7e7;
+        margin: 10px 0px 10px 0px !important;
+    }
+
+    .column {}
+</style>
+{% extends 'member/base.html' %}
+{% load staticfiles %}
+{% block body %}
+<br><br>
+<div class="container">
+    <img src="{% static 'img/profile/devteam_dos.jpg' %}" style="width: 200px;" alt="">
+    <p>
+        Pisol Ruenin
+    </p>
+    <p>
+        DosZa55+
+    </p><br>
+    <p>
+        Game
+        <ul>
+            <li>Fifa</li>
+            <li>Overwatch</li>
+            <li>ROV</li>
+        </ul>
+    </p>
+    <br>
+    <div>
+        Live Stream
+    </div>
+</div>
+
+{% endblock %}
