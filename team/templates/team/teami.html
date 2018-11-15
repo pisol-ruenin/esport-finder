@@ -1,0 +1,14 @@
+{% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
+{% load staticfiles %}
+{% block body %}
+<div class="container"></div><br><br><br><br><center>
+<div> Create your team with friends Create your team with friends Create your team with friends <br>
+    Create your team with friends Create your team with friends Create your team with friends <br>
+    <button class="button">Create Team</button> </div>
+    <hr>
+    <div> Create your team with friends Create your team with friends Create your team with friends <br>
+        Create your team with friends Create your team with friends Create your team with friends <br>
+            <button class="button">Find Team</button> </div>
+</div></center>
+
+{% endblock %}

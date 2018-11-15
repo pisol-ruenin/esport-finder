@@ -23,6 +23,7 @@ urlpatterns = [
     path('',TemplateView.as_view(template_name='index.html'), name='index'),
     path('admin/', admin.site.urls),
     path('member/', include('member.urls')),
+    path('team/', include('team.urls')),
     path('login/',views.LoginView.as_view(),name='login'),
     path('logout/',views.LogoutView.as_view(),name='logout')
     # path('member/', include('django.contrib.auth.urls'))

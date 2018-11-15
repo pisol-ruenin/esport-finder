@@ -1,0 +1,42 @@
+{% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
+{% load staticfiles %}
+{% block body %}
+
+<div class="container"><br>
+    <!-- logo team -->
+    <img src="{% static 'img/profile/Microsoft.png' %}" alt="" width="100px;">
+    <p>Team Name</p>
+    <p>Bio of team</p>
+    <div>
+        <p>Game</p>
+        <img src="{% static 'img/game/fifaonline4.png' %}" alt="" width="200px;">
+    </div>
+    <div>
+        <p>Member</p>
+        <ul>
+            <li>
+                Name 1 Ex Name
+            </li>
+            <li>
+                Name 2 Ex Name
+            </li>
+            <li>
+                Name 3 Ex Name
+            </li>
+            <li>
+                Name 4 Ex Name
+            </li>
+            <li>
+                Name 5 Ex Name
+            </li>
+        </ul>
+    </div>
+    <div>
+        <p>Sponsor</p>
+        <img src="{% static 'img/profile/google.jpg' %}" alt="" width="50px;">
+        <!-- <img src="{% static 'img/profile/devteam_kik.jpg' %}" alt="" width="50px;">
+        <img src="{% static 'img/profile/devteam_kong.jpg' %}" alt="" width="50px;"> -->
+    </div>
+</div>
+
+{% endblock %}
