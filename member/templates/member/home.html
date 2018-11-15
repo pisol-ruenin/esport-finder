@@ -1,12 +1,11 @@
 <style type="text/css">
     .status {
-        background-color: #f1e7e7;
+        background-color: #eeeeee;
         margin: 10px 0px 10px 0px !important;
     }
 
-    .column {}
 </style>
-{% extends 'member/base.html' %}
+{% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
 {% load staticfiles %}
 {% block body %}
 <br><br>
@@ -16,7 +15,7 @@
             <div class="columns status">
                 <div class="column is-1"><img src="{% static 'img/profile/devteam_dos.jpg' %}" alt=""></div>
                 <div class="column">
-                    <p><strong>Pisol</strong></p>
+                    <p><strong>DosZa55+</strong></p>
                     <p>2 Hour ago</p>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
                         the industry's standard dummy text ever since the 1500s,

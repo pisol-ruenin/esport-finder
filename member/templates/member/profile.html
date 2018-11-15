@@ -1,35 +1,129 @@
 <style type="text/css">
-    .status {
-        background-color: #f1e7e7;
-        margin: 10px 0px 10px 0px !important;
+    .profile {
+        /* background-color: #f1e7e7; */
+        padding: 70px 0px 30px 30px !important;
+        color: #464646;
+        background-color: #f0f0f0;
+
     }
 
-    .column {}
+    .columns {
+        margin: 0px !important;
+    }
+
+    .column {
+
+        padding: 0px !important;
+    }
+
+    .logo {
+        width: 20px
+    }
+
+    .Heading_Profile {
+        font-size: 1.3em;
+    }
+
+    body {
+        background-color: #f0f0f0;
+    }
+
+    .post {
+        background-color: #f7f7f7;
+    }
+
+    .status {
+        background-color: #ebebeb;
+        margin: 10px 0px 10px 0px !important;
+    }
 </style>
 {% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
 {% load staticfiles %}
 {% block body %}
-<br><br>
+
 <div class="container">
-    <img src="{% static 'img/profile/devteam_dos.jpg' %}" style="width: 200px;" alt="">
-    <p>
-        {{request.user.first_name}} {{request.user.last_name}}
-    </p>
-    <p>
-        DosZa55+
-    </p><br>
-    <p>
-        Game
-        <ul>
-            <li>Fifa</li>
-            <li>Overwatch</li>
-            <li>ROV</li>
-        </ul>
-    </p>
-    <br>
-    <div>
-        Live Stream
+    <div class="columns">
+        <div class="column is-3">
+
+            <div class="profile">
+                <img src="{% static 'img/profile/devteam_dos.jpg' %}" style="width: 80%;" alt="">
+                <p style="font-size:1.6em;margin-top: 20px;">
+                    {{request.user.first_name}} {{request.user.last_name}}
+                </p>
+                <p>
+                    DosZa55+
+                </p><br>
+                <p class="Heading_Profile">
+                    Game
+                </p>
+                <p>
+                    <img src="{% static 'img/game/fifao4.png' %}" class="logo"> Fifa Online 4
+                </p>
+                <br>
+                <p class="Heading_Profile">
+                    Ranking
+                </p>
+                <p>Noob</p>
+                <br>
+                <p class="Heading_Profile">
+                    Role
+                </p>
+                <p>Noob</p>
+                <br>
+                <div>
+                    <p class="Heading_Profile">Live Stream</p>
+                    <p><a><img class="logo" src="{% static 'img/logo/twitch.png' %}" alt=""></a> Twitch</p>
+                    <p><a><img class="logo" src="{% static 'img/logo/youtube.png' %}" alt=""></a> You Tube</p>
+                </div>
+                <br><br><br>
+            </div>
+        </div>
+        <div class="column post">
+            <img src="{% static 'img/ex-cover.png' %}" width="100%" style="padding:10px;" alt="">
+            <!-- post status input -->
+            <div>
+                <form action="">
+                    <textarea class="textarea" placeholder="What's up!" class="post_input"></textarea>
+                    <button type="submit" class="button" style="float:right;">Post</button>
+                </form>
+            </div><br><br>
+            <!-- section -->
+            <div class="columns status" style="padding:10px !important;">
+                <div class="column is-1"><img src="{% static 'img/profile/devteam_dos.jpg' %}" alt=""></div>
+                <div class="column" style="padding:12px !important;">
+                    <p><strong>DosZa55+</strong></p>
+                    <p>2 Hour ago</p>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                        the industry's standard dummy text ever since the 1500s,
+                        <br><br> when an unknown printer took a galley
+                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                        but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                        popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                        and more recently with desktop publishing software like Aldus PageMaker including versions of
+                        Lorem Ipsum.
+                    </p>
+                    <div style="float:right;"><button class="button">Edit</button>
+                        <button class="button">Delete</button></div>
+
+                </div>
+            </div>
+            <!-- section -->
+            <div class="columns status" style="padding:10px !important;">
+                <div class="column is-1"><img src="{% static 'img/profile/devteam_dos.jpg' %}" alt=""></div>
+                <div class="column" style="padding:12px !important;">
+                    <p><strong>DosZa55+</strong></p>
+                    <p>3 Day ago</p>
+                    <p>In a professional context it often happens that private or corporate clients corder a
+                        publication to be made and presented with the actual content still not being ready. Think of a
+                        news blog that's filled with content hourly on the day of going live. However, reviewers tend
+                        to be distracted by comprehensible content.
+                    </p>
+                    <div style="float:right;"><button class="button">Edit</button>
+                        <button class="button">Delete</button></div>
+                </div>
+            </div>
+            <!-- section -->
+        </div>
     </div>
 </div>
-
 {% endblock %}
