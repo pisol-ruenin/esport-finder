@@ -36,6 +36,7 @@
         background-color: #ebebeb;
         margin: 10px 0px 10px 0px !important;
     }
+
 </style>
 {% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
 {% load staticfiles %}
@@ -44,9 +45,9 @@
 {% block body %}
 
 <div class="container" style="background-color:#f7f7f7">
-    <div class="columns">
-        <div class="column is-3">
-
+    <div class="columns" >
+        <div class="column is-3" >
+        
             <div class="profile" style="background-color:#f7f7f7">
                     <nav class="level">
                             <div class="level-item has-text-centered">
@@ -62,59 +63,51 @@
                               </div>
                             </div>
                           </nav>
-                <img src="{{ request.user.userprofile.profile_img.url }}" style="width: 80%;" alt="">
+                
+                <img src="{{ user.userprofile.profile_img.url }}" style="width: 80%;" alt="">
                 <p style="font-size:1.6em;margin-top: 20px;">
+                        <a href="{% url 'member:following' user.pk %}" class="button is-rounded">Follow</a> <br>
                     {{request.user.first_name}} {{request.user.last_name}}
                 </p>
                 <p>
-                    {{request.user.userprofile.codename}}
+                    {{user.userprofile.codename}}
                 </p><br>
                 <p class="Heading_Profile">
                     Game
                 </p>
                 <p>
-                    <img src="{% static 'img/game/fifao4.png' %}" class="logo"> {{request.user.userprofile.game.name}}
+                    <img src="{% static 'img/game/fifao4.png' %}" class="logo"> {{user.userprofile.game.name}}
                 </p>
                 <br>
                 <p class="Heading_Profile">
                     Ranking
                 </p>
-                <p>{{request.user.userprofile.rank}}</p>
+                <p>{{user.userprofile.rank}}</p>
                 <br>
                 <p class="Heading_Profile">
                     Role
                 </p>
-                <p>{{request.user.userprofile.role.name}}</p>
+                <p>{{user.userprofile.role.name}}</p>
                 <br>
                 <div>
                     <p class="Heading_Profile">Live Stream</p>
-                    <p><a href="{{request.user.userprofile.stream}}"><img class="logo" src="{% static 'img/logo/twitch.png' %}" alt=""></a> Twitch</p>
+                    <p><a href="{{user.userprofile.stream}}"><img class="logo" src="{% static 'img/logo/twitch.png' %}" alt=""></a> Twitch</p>
                 </div>
                 <br><br><br>
             </div>
         </div>
         <div class="column post">
-            <img src="{{ request.user.userprofile.cover_img.url }}" width="100%" style="padding:10px;" alt="">
+            <img src="{{ user.userprofile.cover_img.url }}" width="100%" style="padding:10px;" alt="">
             <!-- post status input -->
-            <div>
-                <form method="post">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        {{ field|add_class:"textarea post_input"|attr:"placeholder:What's up!" }}
-                    {% endfor %}
-                    <button type="submit" id="post" class="button" style="float:right;">Post</button>
-                </form>
-            </div><br><br>
             <!-- section -->
             {% for post in post_list %}
             <div class="columns status" style="padding:10px !important;">
-                <div class="column is-1"><img src="{{ request.user.userprofile.profile_img.url }}" alt=""></div>
+                <div class="column is-1"><img src="{{ user.userprofile.profile_img.url }}" alt=""></div>
                 <div class="column" style="padding:12px !important;">
                     <p><strong>{{post.poster.first_name}} {{post.poster.last_name}}</strong></p>
                     <p>{{ post.datetime}}</p>
                     <p>{{ post.msg|readmore:150 }}</p>
-                    <div style="float:right;"><button class="button">Edit</button>
-                    <a href="{% url 'member:delete_post' post.pk %}"><button class="button">Delete</button></a></div>
+                
 
                 </div>
             </div>
