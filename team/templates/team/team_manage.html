@@ -1,0 +1,55 @@
+{% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
+{% load staticfiles %}
+{% block body %}
+
+<div class="container"><br>
+    <!-- logo team -->
+    <img src="{% static 'img/profile/Microsoft.png' %}" alt="" width="100px;">
+    <p>Team Name</p>
+    <p>Bio of team</p>
+    <div>
+        <p>Game</p>
+        <img src="{% static 'img/game/fifaonline4.png' %}" alt="" width="200px;">
+    </div>
+
+    <div>
+        <p>Sponsor</p>
+        <img src="{% static 'img/profile/google.jpg' %}" alt="" width="50px;">
+        <!-- <img src="{% static 'img/profile/devteam_kik.jpg' %}" alt="" width="50px;">
+        <img src="{% static 'img/profile/devteam_kong.jpg' %}" alt="" width="50px;"> -->
+    </div>
+    <a href="#"><button>Edit Team Info</button></a>
+
+    <hr>
+    <!-- Kong Section -->
+    <div>
+        <p>Register Form</p>
+        <p>Form EX 1 <button>Edit</button> <button>Delete</button></p>
+        <p>Form EX 2 <button>Edit</button> <button>Delete</button></p>
+        <button>New Form</button>
+    </div>
+    <!-- End Kong Section -->
+<hr>
+    <div>
+            <p>Member</p>
+            <ul>
+                <li>
+                    Name 1 Ex Name <button>Delete</button>
+                </li>
+                <li>
+                    Name 2 Ex Name <button>Delete</button>
+                </li>
+                <li>
+                    Name 3 Ex Name <button>Delete</button>
+                </li>
+                <li>
+                    Name 4 Ex Name <button>Delete</button>
+                </li>
+                <li>
+                    Name 5 Ex Name <button>Delete</button>
+                </li>
+            </ul>
+        </div>
+</div>
+
+{% endblock %}

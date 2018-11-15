@@ -1,0 +1,34 @@
+{% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
+{% load staticfiles %}
+{% block body %}
+<div class="container">
+    <br><br><br>
+    Edit Team Info
+    <br><br>
+    <form action="#">
+        <!-- recomend to disable name and game for edit // แต่ถ้าดอสจะให้แก้ได้ ก็แล้วแต่ดอส -->
+        <p>Team Name</p>
+        <input type="text" name="name" disabled><br><br>
+        <p>Biology</p>
+        <textarea name="" id="" cols="25" rows="10"></textarea>
+        <br><br>
+        <p>Game</p>
+        <select name="game" disabled>
+            <option value="dota2">Dota2</option>
+            <option value="ffol4">Fifa Online 4</option>
+            <option value="ow">Overwatch</option>
+            <option value="rov">ROV</option>
+        </select><br><br>
+        <p>Profile Image</p>
+        <input type="file" name="profile_team" id=""><br><br>
+        <p>Sponsor</p>
+        <input type="text"><br><br>
+        <p>Sponsor Image</p>
+        <input type="file" name="profile_team" id=""><br><br>
+        <button type="submit" class="button">Save</button>
+        <button type="reset" class="button">Reset</button>
+        <button class="button">Delete Team</button>
+    </form>
+    <br><br>
+</div>
+{% endblock %}
