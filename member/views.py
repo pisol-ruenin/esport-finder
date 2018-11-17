@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.shortcuts import redirect
 from django.views import generic
-from member.forms import RegistrationForm,PostStatus
+from member.forms import RegistrationForm,PostStatus,ProfileForm
 from .models import UserProfile,Post,Follow
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
@@ -31,8 +31,10 @@ class Profile(generic.CreateView,LoginRequiredMixin,generic.ListView):
         context = super(Profile,self).get_context_data(**kwargs)
         # context['player'] = User.objects.get(pk=self.kwargs['pk'])
         context['post_list'] = Post.objects.filter(poster=self.request.user.pk)
-        context['follower'] = len(Follow.objects.filter(following=self.request.user.pk))
-        context['following'] = len(Follow.objects.filter(follower=self.request.user.pk))
+        context['follower'] = Follow.objects.filter(following=self.request.user.pk)
+        context['following'] = Follow.objects.filter(follower=self.request.user.pk)
+        context['follower_len'] = len(Follow.objects.filter(following=self.request.user.pk))
+        context['following_len'] = len(Follow.objects.filter(follower=self.request.user.pk))
         return context
 
     def get_queryset(self):
@@ -63,9 +65,13 @@ class Player(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(Player,self).get_context_data(**kwargs)
         # context['player'] = User.objects.get(pk=self.kwargs['pk'])
-        context['post_list'] = Post.objects.filter(poster=self.get_object())
-        context['follower'] = len(Follow.objects.filter(following=self.get_object()))
-        context['following'] = len(Follow.objects.filter(follower=self.get_object()))
+        # print(self.get_object())
+        context['ck_follow'] = len(Follow.objects.filter(following=self.kwargs['pk'],follower=self.request.user.pk))
+        context['follower'] = Follow.objects.filter(following=self.kwargs['pk'])
+        context['following'] = Follow.objects.filter(follower=self.kwargs['pk'])
+        context['post_list'] = Post.objects.filter(poster=self.kwargs['pk'])
+        context['follower_len'] = len(Follow.objects.filter(following=self.kwargs['pk']))
+        context['following_len'] = len(Follow.objects.filter(follower=self.kwargs['pk']))
         return context
     # def get_queryset(self):
     #     player = User.objects.get(pk=self.kwargs['pk'])
@@ -77,6 +83,10 @@ class Player(generic.DetailView):
 
 class Following(generic.CreateView):
     model = Follow
+
+    def get_success_url(self, *arg, **kwargs):
+        return reverse('member:player',kwargs={'pk': self.kwargs['pk']})
+
     def dispatch(self,*args, **kwargs):
         follow = Follow()
         follower = User.objects.get(pk=self.request.user.pk)
@@ -92,7 +102,31 @@ class Home(generic.ListView):
     context_object_name = "feed"
     def get_queryset(self):
         following = Follow.objects.filter(follower=self.request.user.pk)
-        feed = list()
+        print(following)
+        feed = Follow.objects.none()
         for i in following:
-            feed.append(Post.objects.filter(poster=i.pk))
-        return feed[::-1]
+            temp = Post.objects.filter(poster=i.following.id)
+            feed = feed | temp
+        # if len(feed)>0:
+        #     new_feed = feed[0]
+        #     for i in feed:
+        #         new_feed = new_feed | i
+        print(feed)
+        return feed.distinct().order_by('datetime')[::-1]
+
+class EditProfile(generic.UpdateView):
+    template_name = 'member/edit_profile.html'
+    raise_exception = True
+    model = UserProfile
+    form_class = ProfileForm
+    # fields = ['codename','birtdate','tel','streaming','province','game','role','rank','profile_img','cover_img']
+
+    def get_success_url(self, *arg, **kwargs):
+        return reverse('member:profile')
+
+    def dispatch(self, *args, **kwargs):
+        # user_profile = UserProfile.objects.get(pk=self.request.user.pk)
+        if self.request.user.pk != self.kwargs['pk']:
+            return redirect('member:profile')
+        return super(EditProfile, self).dispatch(*args, **kwargs)
+

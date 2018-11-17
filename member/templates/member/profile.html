@@ -43,6 +43,71 @@
 {% load readmore %}
 {% block body %}
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    function modal1 () {
+        $('#following').toggleClass('is-active');
+    };
+    function modal1Close(){
+        $('#following').removeClass('is-active');
+    }
+    function modal2 () {
+        $('#followers').toggleClass('is-active');
+    };
+    function modal2Close(){
+        $('#followers').removeClass('is-active');
+    }
+</script>
+<div id="following" class="modal">
+        <div class="modal-background" onclick="modal1Close.call(this)"></div>
+          <div class="modal-content">
+                <div class="box">
+                {% for p in following %}
+                <div class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img src="{{p.following.userprofile.profile_img.url}}" alt="Image">
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                            <a href="{% url 'member:player' p.following.pk %}"><strong>{{p.following.first_name}} {{p.following.last_name}}</strong> <br><small>@{{p.following.userprofile.codename}}</small></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button onclick="modal1Close.call(this)" class="modal-close is-large" aria-label="close"></button>
+        </div>
+    </div>
+<div id="followers" class="modal">
+    <div class="modal-background" onclick="modal2Close.call(this)"></div>
+      <div class="modal-content">
+            <div class="box">
+            {% for p in follower %}
+            <div class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                        <img src="{{p.follower.userprofile.profile_img.url}}" alt="Image">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                        <a href="{% url 'member:player' p.follower.pk %}"><strong>{{p.follower.first_name}} {{p.follower.last_name}}</strong> <br><small>@{{p.follower.userprofile.codename}}</small></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button onclick="modal2Close.call(this)" class="modal-close is-large" aria-label="close"></button>
+    </div>
+</div>
+
+
 <div class="container" style="background-color:#f7f7f7">
     <div class="columns">
         <div class="column is-3">
@@ -51,14 +116,15 @@
                     <nav class="level">
                             <div class="level-item has-text-centered">
                               <div>
-                                <p class="heading">Following</p>
-                                <p class="title">{{following}}</p>
+                                <a onclick="modal1.call(this)"><p class="heading">Following</p>
+                                <p class="title">{{following_len}}</p></a>
+                                
                               </div>
                             </div>
                             <div class="level-item has-text-centered">
                               <div>
-                                <p class="heading">Follower</p>
-                                <p class="title">{{follower}}</p>
+                                <a onclick="modal2.call(this)"><p class="heading">Follower</p>
+                                <p class="title">{{follower_len}}</p></a>
                               </div>
                             </div>
                           </nav>
@@ -67,28 +133,19 @@
                     {{request.user.first_name}} {{request.user.last_name}}
                 </p>
                 <p>
-                    {{request.user.userprofile.codename}}
+                    @{{request.user.userprofile.codename}}
                 </p><br>
-                <p class="Heading_Profile">
+                <!-- <p class="Heading_Profile">
                     Game
-                </p>
+                </p> -->
                 <p>
-                    <img src="{% static 'img/game/fifao4.png' %}" class="logo"> {{request.user.userprofile.game.name}}
+                    <img src="{{ request.user.userprofile.game.img.url }}" class="logo"> {{request.user.userprofile.game.name}} [{{request.user.userprofile.rank}}]
                 </p>
-                <br>
-                <p class="Heading_Profile">
-                    Ranking
-                </p>
-                <p>{{request.user.userprofile.rank}}</p>
-                <br>
-                <p class="Heading_Profile">
-                    Role
-                </p>
-                <p>{{request.user.userprofile.role.name}}</p>
+                <p>Role: {{request.user.userprofile.role.name}}</p>
                 <br>
                 <div>
-                    <p class="Heading_Profile">Live Stream</p>
-                    <p><a href="{{request.user.userprofile.stream}}"><img class="logo" src="{% static 'img/logo/twitch.png' %}" alt=""></a> Twitch</p>
+                    <!-- <p class="Heading_Profile">Live Stream</p> -->
+                    <p><img class="logo" src="{% static 'img/logo/twitch.png' %}" alt=""><a href="http://www.twitch.com/{{request.user.userprofile.streaming}}"> {{request.user.userprofile.streaming}}</a></p>
                 </div>
                 <br><br><br>
             </div>

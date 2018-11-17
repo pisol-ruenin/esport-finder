@@ -14,6 +14,7 @@ urlpatterns = [
     # url(r'^login$',views.login,name='login'),
     # url(r'^signup$',views.signup,name='signup'),
     path('profile/',views.Profile.as_view(),name='profile'),
+    path('profile/<int:pk>/edit/',views.EditProfile.as_view(),name='edit_profile')
     # path('home/',views.signup),
     # path('<code_name>/',views.profile)
 ]

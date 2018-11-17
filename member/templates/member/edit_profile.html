@@ -1,0 +1,30 @@
+<style type="text/css">
+    .login-box {
+        margin: 50px 0px 0px 20px;
+        width: 300px;
+        max-width: 100%;
+    }
+</style>
+{% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
+{% load staticfiles %}
+{% block body %}
+{% load widget_tweaks %}
+<div class="container">
+    <div class="login-box">
+        <h1>Edit Profile</h1>
+        <br>
+        <form class="controls" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.label_tag }}
+                {{ field|add_class:"label input" }}
+                {{ field.errors }}
+            {% endfor %}
+            <br>
+            <button class="button" type="submit">Submit</button>
+            <button class="button" type="reset">Reset</button>
+        </form>
+        <br><br><br>
+    </div>
+</div>
+{% endblock %}

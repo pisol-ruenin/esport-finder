@@ -50,9 +50,9 @@
 
                     <div class="navbar-dropdown is-right">
                         <a class="navbar-item" href="{% url 'member:profile' %}">
-                            <strong>{{request.user.userprofile.codename}}</strong>
+                            <strong>{{request.user.first_name}} {{request.user.last_name}}</strong>
                         </a>
-                        <a class="navbar-item">
+                        <a href="{% url 'member:edit_profile' request.user.pk %}" class="navbar-item">
                             Edit Profile
                         </a>
 

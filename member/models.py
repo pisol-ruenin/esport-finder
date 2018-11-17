@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 class Game(models.Model):
     name = models.CharField(max_length=20,primary_key=True)
     genre = models.CharField(max_length=20)
+    img = models.ImageField(blank=True)
     def __str__(self):
         return self.name
 
@@ -19,6 +20,12 @@ class Role(models.Model):
     def __str__(self):
         return self.name
 
+class GameRole(models.Model):
+    game_name = models.ForeignKey(Game,on_delete=models.CASCADE)
+    role_name = models.ForeignKey(Role,on_delete=models.CASCADE)
+    class Meta:
+        unique_together = (("game_name","role_name"))
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
     codename = models.CharField(max_length=10,blank=True)
@@ -32,12 +39,6 @@ class UserProfile(models.Model):
     profile_img = models.ImageField(default='default/default_profile.png',blank=True)
     cover_img = models.ImageField(default='default/default_cover.png', blank=True)
     
-
-class GameRole(models.Model):
-    game_name = models.ForeignKey(Game,on_delete=models.CASCADE)
-    role_name = models.ForeignKey(Role,on_delete=models.CASCADE)
-    class Meta:
-        unique_together = (("game_name","role_name"))
 
 class Post(models.Model):
     poster = models.ForeignKey(User,on_delete=models.CASCADE)

@@ -43,6 +43,70 @@
 {% load widget_tweaks %}
 {% load readmore %}
 {% block body %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    function modal1 () {
+        $('#following').toggleClass('is-active');
+    };
+    function modal1Close(){
+        $('#following').removeClass('is-active');
+    }
+    function modal2 () {
+        $('#followers').toggleClass('is-active');
+    };
+    function modal2Close(){
+        $('#followers').removeClass('is-active');
+    }
+</script>
+
+<div id="following" class="modal">
+        <div onclick="modal1Close.call(this)" class="modal-background"></div>
+          <div class="modal-content">
+                <div class="box">
+                {% for p in following %}
+                <div class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img src="{{p.following.userprofile.profile_img.url}}" alt="Image">
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                            <a href="{% url 'member:player' p.following.pk %}"><strong>{{p.following.first_name}} {{p.following.last_name}}</strong> <br><small>@{{p.following.userprofile.codename}}</small></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button onclick="modal1Close.call(this)" class="modal-close is-large" aria-label="close"></button>
+        </div>
+    </div>
+<div id="followers" class="modal">
+    <div onclick="modal2Close.call(this)" class="modal-background"></div>
+      <div class="modal-content">
+            <div class="box">
+            {% for p2 in follower %}
+            <div class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                        <img src="{{p2.follower.userprofile.profile_img.url}}" alt="Image">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                        <a href="{% url 'member:player' p2.follower.pk %}"><strong>{{p2.follower.first_name}} {{p2.follower.last_name}}</strong> <br><small>@{{p2.follower.userprofile.codename}}</small></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button onclick="modal2Close.call(this)" class="modal-close is-large" aria-label="close"></button>
+    </div>
+</div>
 
 <div class="container" style="background-color:#f7f7f7">
     <div class="columns" >
@@ -52,37 +116,38 @@
                     <nav class="level">
                             <div class="level-item has-text-centered">
                               <div>
-                                <p class="heading">Following</p>
-                                <p class="title">{{following}}</p>
+                                <a onclick="modal1.call(this)"><p class="heading">Following</p>
+                                <p class="title">{{following_len}}</p></a>
                               </div>
                             </div>
                             <div class="level-item has-text-centered">
                               <div>
-                                <p class="heading">Follower</p>
-                                <p class="title">{{follower}}</p>
+                                <a onclick="modal2.call(this)"><p class="heading">Follower</p>
+                                <p class="title">{{follower_len}}</p></a>
                               </div>
                             </div>
                           </nav>
                 
                 <img src="{{ user.userprofile.profile_img.url }}" style="width: 80%;" alt="">
-                <p style="font-size:1.6em;margin-top: 20px;">
-                        <a href="{% url 'member:following' user.pk %}" class="button is-rounded">Follow</a> <br>
-                    {{request.user.first_name}} {{request.user.last_name}}
-                </p>
-                <p>
-                    {{user.userprofile.codename}}
-                </p><br>
-                <p class="Heading_Profile">
-                    Game
-                </p>
-                <p>
-                    <img src="{% static 'img/game/fifao4.png' %}" class="logo"> {{user.userprofile.game.name}}
-                </p>
+                {% if ck_follow %}
+                <a href="" class="button is-rounded">Unfollow</a>
+                {% else %}
+                <a href="{% url 'member:following' user.pk %}" class="button is-rounded">Follow</a>
+                {% endif %}
                 <br>
-                <p class="Heading_Profile">
-                    Ranking
+                <p style="font-size:1.6em;margin-top: 20px;">
+                        
+                    {{user.first_name}} {{user.last_name}}
                 </p>
-                <p>{{user.userprofile.rank}}</p>
+                <p>
+                    @{{user.userprofile.codename}}
+                </p><br>
+                <!-- <p class="Heading_Profile">
+                    Game
+                </p> -->
+                <p>
+                    <img src="{{ user.userprofile.game.img.url }}" class="logo"> {{user.userprofile.game.name}} [{{user.userprofile.rank}}]
+                </p>
                 <br>
                 <p class="Heading_Profile">
                     Role
@@ -90,8 +155,8 @@
                 <p>{{user.userprofile.role.name}}</p>
                 <br>
                 <div>
-                    <p class="Heading_Profile">Live Stream</p>
-                    <p><a href="{{user.userprofile.stream}}"><img class="logo" src="{% static 'img/logo/twitch.png' %}" alt=""></a> Twitch</p>
+                    <!-- <p class="Heading_Profile">Live Stream</p> -->
+                    <p><img class="logo" src="{% static 'img/logo/twitch.png' %}" alt=""><a href="http://www.twitch.com/{{user.userprofile.streaming}}">{{user.userprofile.streaming}}</a></p>
                 </div>
                 <br><br><br>
             </div>

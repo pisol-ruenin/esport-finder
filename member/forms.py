@@ -30,6 +30,28 @@ class RegistrationForm(UserCreationForm):
         
         return user
 
+class ProfileForm(forms.ModelForm):
+    # birtdate = forms.DateField()
+    class Meta:
+        model = UserProfile
+        fields = [
+            'codename',
+            'birtdate',
+            'tel',
+            'streaming',
+            'province',
+            'game',
+            'role',
+            'rank',
+            'profile_img',
+            'cover_img'
+        ]
+        widgets = {
+            'birtdate': forms.DateInput(attrs={'type': 'date'}),
+        }
+        # widget = {'birtdate':forms.DateInput(attrs={'class':'datepicker'})}
+
+
 class PostStatus(forms.ModelForm):
     msg = forms.CharField(widget=forms.Textarea)
     class Meta:
