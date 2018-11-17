@@ -23,3 +23,9 @@ def team_manage(request):
 
 def team_editinfo(request):
     return render(request, 'team/team_editinfo.html')
+
+def team_list(request):
+    return render(request, 'team/team_list.html')
+
+def team_recruitment(request):
+    return render(request, 'team/team_recruitment.html')
