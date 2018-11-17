@@ -1,0 +1,110 @@
+<style type="text/css">
+    .profile_lteam {
+        width: 30px;
+    }
+
+    tr:hover {
+        background-color: rgb(240, 240, 240);
+    }
+
+    th {
+        color: white !important;
+        background-color: rgb(75, 75, 75);
+    }
+
+    .text_search {
+        margin-right: 10px;
+    }
+</style>
+{% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
+{% load staticfiles %}
+{% block body %}
+
+<div class="container">
+    <br><br>
+    <strong style="font-size:2em;">
+        Recruitment Team
+    </strong>
+    <br><br>
+    <div>
+        <form class="controls" action="#">
+            <p>Search</p>
+            <input type="search" name="" id="" class="input">
+            <br><br>
+            <div class="columns">
+                <div class="column is-2">
+                    <div text_search>Game</div>
+                    <div class="select">
+                        <select>
+                            <option>Overwatch</option>
+                            <option>Fifa Online 4</option>
+                            <option>ROV</option>
+                            <option>Dota 2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div text_search>Game</div>
+                    <div class="select">
+                        <select disabled>
+                            <option>Overwatch</option>
+                            <option>Fifa Online 4</option>
+                            <option>ROV</option>
+                            <option>Dota 2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="column is-2">
+                        <button class="button" type="submit">Search</button>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+    <br><br>
+    <table class="table is-fullwidth">
+        <tr>
+            <th>Profile</th>
+            <th>Name</th>
+            <th>Games</th>
+            <th>Sponsor</th>
+        </tr>
+        <tr>
+            <td><img class="profile_lteam" src="{% static 'img/profile/Microsoft.png' %}" alt=""></td>
+            <td><a href="{% url 'team_info' %}">ยุธศาสตร์ชาติ</a></td>
+            <td>Dota 2</td>
+            <td>Microsoft Education</td>
+        </tr>
+        <tr>
+            <td><img class="profile_lteam" src="{% static 'img/profile/google.jpg' %}" alt=""></td>
+            <td><a href="{% url 'team_info' %}">กัปตันนาฬิกา</a></td>
+            <td>ROV</td>
+            <td>Google Education</td>
+        </tr></a>
+        <tr>
+            <td><img class="profile_lteam" src="{% static 'img/profile/Nubwo.png' %}" alt=""></td>
+            <td><a href="{% url 'team_info' %}">Japanese Style</a></td>
+            <td>Fifa Online 4</td>
+            <td>Nubwo E-Sport</td>
+        </tr>
+        <tr>
+            <td><img class="profile_lteam" src="{% static 'img/profile/CCSESP.png' %}" alt=""></td>
+            <td><a href="{% url 'team_info' %}">หมดแพชชั่น</a></td>
+            <td>Overwatch</td>
+            <td>CCS E-Sports</td>
+        </tr>
+        <tr>
+            <td><img class="profile_lteam" src="{% static 'img/profile/CDR.png' %}" alt=""></td>
+            <td><a href="{% url 'team_info' %}">ไอนีทโปรจิ</a></td>
+            <td>Overwatch</td>
+            <td>CDR Highend</td>
+        </tr>
+        <tr>
+            <td><img class="profile_lteam" src="{% static 'img/profile/MaeKulab.jpeg' %}" alt=""></td>
+            <td><a href="{% url 'team_info' %}">ไอนีทโมจิ</a></td>
+            <td>Overwatch</td>
+            <td>แม่กุหลาบ</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}
