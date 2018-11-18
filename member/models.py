@@ -50,6 +50,8 @@ class Post(models.Model):
 class Mail(models.Model):
     sender = models.ForeignKey(User,on_delete=models.CASCADE,related_name='%(class)s_requests_sender')
     reciever = models.ForeignKey(User,on_delete=models.CASCADE,related_name='%(class)s_requests_reciever')
+    topic = models.CharField(max_length=50)
+    msg = models.CharField(max_length=300)
     datetime = models.DateTimeField(auto_now_add=True)
     class Meta:
         unique_together = (("sender", "reciever","datetime"))

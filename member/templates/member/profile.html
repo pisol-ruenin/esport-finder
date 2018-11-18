@@ -61,7 +61,7 @@
 <div id="following" class="modal">
         <div class="modal-background" onclick="modal1Close.call(this)"></div>
           <div class="modal-content">
-                <div class="box">
+                <div class="modal-card-body">
                 {% for p in following %}
                 <div class="media">
                     <div class="media-left">
@@ -72,7 +72,7 @@
                     <div class="media-content">
                         <div class="content">
                             <p>
-                            <a href="{% url 'member:player' p.following.pk %}"><strong>{{p.following.first_name}} {{p.following.last_name}}</strong> <br><small>@{{p.following.userprofile.codename}}</small></a>
+                            <a href="{% url 'member:player' p.following.pk %}"><strong>{{p.following.first_name}} {{p.following.last_name}}</strong> <br><small>@{{p.following.username}}</small></a>
                             </p>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
 <div id="followers" class="modal">
     <div class="modal-background" onclick="modal2Close.call(this)"></div>
       <div class="modal-content">
-            <div class="box">
+            <div class="modal-card-body">
             {% for p in follower %}
             <div class="media">
                 <div class="media-left">
@@ -96,7 +96,7 @@
                 <div class="media-content">
                     <div class="content">
                         <p>
-                        <a href="{% url 'member:player' p.follower.pk %}"><strong>{{p.follower.first_name}} {{p.follower.last_name}}</strong> <br><small>@{{p.follower.userprofile.codename}}</small></a>
+                        <a href="{% url 'member:player' p.follower.pk %}"><strong>{{p.follower.first_name}} {{p.follower.last_name}}</strong> <br><small>@{{p.follower.username}}</small></a>
                         </p>
                     </div>
                 </div>
@@ -128,12 +128,13 @@
                               </div>
                             </div>
                           </nav>
-                <img src="{{ request.user.userprofile.profile_img.url }}" style="width: 80%;" alt="">
+                <center>
+                <img src="{{ request.user.userprofile.profile_img.url }}" style="width: 80%;" alt=""></center>
                 <p style="font-size:1.6em;margin-top: 20px;">
                     {{request.user.first_name}} {{request.user.last_name}}
                 </p>
                 <p>
-                    @{{request.user.userprofile.codename}}
+                    @{{request.user.username}}
                 </p><br>
                 <!-- <p class="Heading_Profile">
                     Game
@@ -157,7 +158,7 @@
                 <form method="post">
                     {% csrf_token %}
                     {% for field in form %}
-                        {{ field|add_class:"textarea post_input"|attr:"placeholder:What's up!" }}
+                        {{ field|add_class:"textarea post_input"|attr:"placeholder:What's up!"|attr:"rows:3" }}
                     {% endfor %}
                     <button type="submit" id="post" class="button" style="float:right;">Post</button>
                 </form>

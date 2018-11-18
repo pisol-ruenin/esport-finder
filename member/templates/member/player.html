@@ -62,7 +62,7 @@
 <div id="following" class="modal">
         <div onclick="modal1Close.call(this)" class="modal-background"></div>
           <div class="modal-content">
-                <div class="box">
+                <div class="modal-card-body">
                 {% for p in following %}
                 <div class="media">
                     <div class="media-left">
@@ -73,7 +73,7 @@
                     <div class="media-content">
                         <div class="content">
                             <p>
-                            <a href="{% url 'member:player' p.following.pk %}"><strong>{{p.following.first_name}} {{p.following.last_name}}</strong> <br><small>@{{p.following.userprofile.codename}}</small></a>
+                            <a href="{% url 'member:player' p.following.pk %}"><strong>{{p.following.first_name}} {{p.following.last_name}}</strong> <br><small>@{{p.following.username}}</small></a>
                             </p>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
 <div id="followers" class="modal">
     <div onclick="modal2Close.call(this)" class="modal-background"></div>
       <div class="modal-content">
-            <div class="box">
+            <div class="modal-card-body">
             {% for p2 in follower %}
             <div class="media">
                 <div class="media-left">
@@ -97,7 +97,7 @@
                 <div class="media-content">
                     <div class="content">
                         <p>
-                        <a href="{% url 'member:player' p2.follower.pk %}"><strong>{{p2.follower.first_name}} {{p2.follower.last_name}}</strong> <br><small>@{{p2.follower.userprofile.codename}}</small></a>
+                        <a href="{% url 'member:player' p2.follower.pk %}"><strong>{{p2.follower.first_name}} {{p2.follower.last_name}}</strong> <br><small>@{{p2.follower.username}}</small></a>
                         </p>
                     </div>
                 </div>
@@ -128,19 +128,25 @@
                             </div>
                           </nav>
                 
-                <img src="{{ user.userprofile.profile_img.url }}" style="width: 80%;" alt="">
+                <center><img src="{{ user.userprofile.profile_img.url }}" style="width: 80%;" alt="">
                 {% if ck_follow %}
-                <a href="" class="button is-rounded">Unfollow</a>
+                <a href="{% url 'member:unfollow' user.pk %}" class="button is-rounded">Unfollow</a>
                 {% else %}
                 <a href="{% url 'member:following' user.pk %}" class="button is-rounded">Follow</a>
                 {% endif %}
+                <form method="post" action="{% url 'member:send_mail' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="reciever" value="{{ user.username }}"></input>
+                    <button type="submit" class="button" >Mail</button>
+                </form>
+                </center>
                 <br>
                 <p style="font-size:1.6em;margin-top: 20px;">
                         
                     {{user.first_name}} {{user.last_name}}
                 </p>
                 <p>
-                    @{{user.userprofile.codename}}
+                    @{{user.username}}
                 </p><br>
                 <!-- <p class="Heading_Profile">
                     Game
@@ -149,10 +155,7 @@
                     <img src="{{ user.userprofile.game.img.url }}" class="logo"> {{user.userprofile.game.name}} [{{user.userprofile.rank}}]
                 </p>
                 <br>
-                <p class="Heading_Profile">
-                    Role
-                </p>
-                <p>{{user.userprofile.role.name}}</p>
+                <p>Role: {{user.userprofile.role.name}}</p>
                 <br>
                 <div>
                     <!-- <p class="Heading_Profile">Live Stream</p> -->

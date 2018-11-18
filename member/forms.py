@@ -1,7 +1,30 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserProfile, Post
+from .models import UserProfile, Post, Mail
+
+class MailForm(forms.ModelForm):
+    to = forms.CharField(max_length =300)
+    msg = forms.CharField(widget=forms.Textarea(attrs={'class': 'textarea'}))      
+    reciever = forms.HiddenInput()
+    class Meta:
+        model = Mail
+        fields = ['to','topic','msg']
+        widgets = {
+                'reciever': forms.HiddenInput(),
+            }
+        labels = {
+           'to': 'Message to',
+        }
+
+    def save(self,commit=True):
+        mail = super(MailForm, self).save(commit=False)
+        user = User.objects.get(username=self.cleaned_data.get('to'))
+        mail.reciever = user
+        mail.msg = self.cleaned_data['msg']
+        if commit:
+            mail.save()
+        return mail
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -31,7 +54,6 @@ class RegistrationForm(UserCreationForm):
         return user
 
 class ProfileForm(forms.ModelForm):
-    # birtdate = forms.DateField()
     class Meta:
         model = UserProfile
         fields = [

@@ -3,10 +3,11 @@ from django.contrib.auth.models import User
 from member.models import Game
 
 class Team(models.Model):
-    name = models.CharField(max_length=20,primary_key=True)
+    name = models.CharField(max_length=20)
     email = models.EmailField()
     website = models.URLField(blank=True)
     description = models.CharField(max_length=100,blank=True)
+    founder = models.OneToOneField(User,models.SET_NULL,blank=True,null=True)
     game = models.ForeignKey(Game,models.SET_NULL,blank=True,null=True)
     class Meta:
         unique_together = (("game", "name"))
