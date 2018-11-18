@@ -1,0 +1,34 @@
+{% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
+{% load staticfiles %}
+{% block body %}
+
+<div class="container">
+    <br><br>
+    <form class="controls" action="#">
+        Heading : <input class="input" type="text"><br>
+        Image Cover : <div class="file">
+            <label class="file-label">
+                <input class="file-input" type="file" name="resume">
+                <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                        Choose a file…
+                    </span>
+                </span>
+            </label>
+        </div>
+        Description : <br> <textarea class="textarea" placeholder="Description" name="" id="" cols="30" rows="10"></textarea><br>
+        Start-Date : <input class="input" type="date" name="" id="">
+        End-Date : <input class="input" type="date" name="" id="">
+        <br><br>
+        <div style="float:right;">
+            <button class="button" type="submit">Create</button>
+            <button class="button" type="reset">Clear</button>
+        </div>
+    </form>
+    <br><br><br><br>
+</div>
+
+{% endblock %}

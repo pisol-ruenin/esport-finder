@@ -29,3 +29,6 @@ def team_list(request):
 
 def team_recruitment(request):
     return render(request, 'team/team_recruitment.html')
+
+def team_recruitment_create(request):
+    return render(request, 'team/team_recruitment_create.html')

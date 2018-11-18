@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^team_editinfo$', views.team_editinfo, name='team_editinfo'),
     url(r'^team_list$', views.team_list, name='team_list'),
     url(r'^team_recruitment$', views.team_recruitment, name='team_recruitment'),
+        url(r'^team_recruitment_create$', views.team_recruitment_create, name='team_recruitment_create'),
     # url(r'^profile$',views.profile,name='profile'),
     # path('home/',views.signup),
     # path('<code_name>/',views.profile)
