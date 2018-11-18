@@ -4,11 +4,11 @@
 <div class="container"></div><br><br><br><br><center>
 <div> Create your team with friends Create your team with friends Create your team with friends <br>
     Create your team with friends Create your team with friends Create your team with friends <br>
-    <button class="button">Create Team</button> </div>
+    <a href="{% url 'team:team_create' %}"><button class="button">Create Team</button></a> </div>
     <hr>
     <div> Create your team with friends Create your team with friends Create your team with friends <br>
         Create your team with friends Create your team with friends Create your team with friends <br>
-            <button class="button">Find Team</button> </div>
+        <a href="{% url 'team:team_list' %}"><button class="button">Find Team</button> </div>
 </div></center>
 
 {% endblock %}

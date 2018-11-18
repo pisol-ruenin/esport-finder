@@ -3,7 +3,11 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
-from member.forms import RegistrationForm
+from .models import Team
+
+class CreateTeam(generic.CreateView):
+    template_name = 'team/team_create.html'
+    model = Team
 
 
 def teami(request):

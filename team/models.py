@@ -9,6 +9,7 @@ class Team(models.Model):
     description = models.CharField(max_length=100,blank=True)
     founder = models.OneToOneField(User,models.SET_NULL,blank=True,null=True)
     game = models.ForeignKey(Game,models.SET_NULL,blank=True,null=True)
+    img = models.ImageField(default='default/default_team.png',blank=True)
     class Meta:
         unique_together = (("game", "name"))
 

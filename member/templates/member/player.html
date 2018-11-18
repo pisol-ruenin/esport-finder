@@ -143,7 +143,7 @@
                 <br>
                 <p style="font-size:1.6em;margin-top: 20px;">
                         
-                    {{user.first_name}} {{user.last_name}}
+                    {{user.first_name}} {{user.last_name}} ({{ user.userprofile.codename }})
                 </p>
                 <p>
                     @{{user.username}}
@@ -152,7 +152,7 @@
                     Game
                 </p> -->
                 <p>
-                    <img src="{{ user.userprofile.game.img.url }}" class="logo"> {{user.userprofile.game.name}} [{{user.userprofile.rank}}]
+                    <img src="{{ user.userprofile.game.img.url }}" class="logo"> {{user.userprofile.game.name}}<br> [{{user.userprofile.rank}}]
                 </p>
                 <br>
                 <p>Role: {{user.userprofile.role.name}}</p>
