@@ -7,6 +7,8 @@ from .models import Team,TeamMember,TeamRole
 from team.forms import CreateTeamForm,EditTeamInfoForm
 from django.http import HttpResponseRedirect
 from .filters import TeamFilter
+from team.forms import TeamRecruitForm
+from team.models import TeamRecruitPost
 
 class Teami(generic.View):
     template_name = 'team/teami.html'
@@ -70,8 +72,23 @@ def team_manage(request):
 def team_list(request):
     return render(request, 'team/team_list.html')
 
-def team_recruitment(request):
-    return render(request, 'team/team_recruitment.html')
+class team_recruitment(generic.CreateView):
+    template_name = 'team/team_recruitment.html'
+    context_object_name = "feed"
+    # def get(self,request):
+    #     posts = TeamRecruitPost.objects.all()
+    #     args = {'posts':posts}
+    #     return render(request,self.template_name,args)
 
-def team_recruitment_create(request):
-    return render(request, 'team/team_recruitment_create.html')
+class team_recruitment_list(generic.ListView):
+    template_name = 'team/team_recruitment_list.html'
+    def get(self,request):
+        posts = TeamRecruitPost.objects.all()
+        
+        args = {'posts':posts}
+        return render(request,self.template_name,args)
+
+class team_recruitment_create(generic.CreateView):
+    template_name =  'team/team_recruitment_create.html'
+    success_url = reverse_lazy('team:team_recruitment_list')
+    form_class = TeamRecruitForm

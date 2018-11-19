@@ -1,0 +1,89 @@
+<style type="text/css">
+    .profile_lteam {
+        width: 30px;
+    }
+
+    tr:hover {
+        background-color: rgb(240, 240, 240);
+    }
+
+    th {
+        color: white !important;
+        background-color: rgb(75, 75, 75);
+    }
+
+    .text_search {
+        margin-right: 10px;
+    }
+</style>
+
+{% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block body %}
+
+<div class="container">
+    <!-- {% for TeamRecruitPost in posts %}
+        {{TeamRecruitPost.heading}}
+    {% endfor %} -->
+
+    <br><br>
+    <strong style="font-size:2em;">
+        Recruitment Team
+    </strong>
+    <br><br>
+    <div>
+        <form class="controls" action="#">
+            <p>Search</p>
+            <input type="search" name="" id="" class="input">
+            <br><br>
+            <div class="columns">
+                <div class="column is-2">
+                    <div text_search>Game</div>
+                    <div class="select">
+                        <select>
+                            <option>Overwatch</option>
+                            <option>Fifa Online 4</option>
+                            <option>ROV</option>
+                            <option>Dota 2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div text_search>Game</div>
+                    <div class="select">
+                        <select disabled>
+                            <option>Overwatch</option>
+                            <option>Fifa Online 4</option>
+                            <option>ROV</option>
+                            <option>Dota 2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="column is-2">
+                        <button class="button" type="submit">Search</button>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+    <br><br>
+    <table class="table is-fullwidth">
+        <tr>
+            <th>Team</th>
+            <th>Heading</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+        {% for TeamRecruitPost in posts %}
+        <tr>
+            <td><button onclick="document.location = '{{ TeamRecruitPost.pk }}/';">Click!</button></td>
+            <td>{{TeamRecruitPost.heading}}</td>
+            <td>{{TeamRecruitPost.start_date}}</td>
+            <td>{{TeamRecruitPost.end_date}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

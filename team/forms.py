@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Team,TeamMember,TeamRole
+from .models import Team,TeamMember,TeamRole,TeamRecruitPost
 
 class CreateTeamForm(forms.ModelForm):
     email = forms.EmailField(required=True)
@@ -45,3 +45,29 @@ class EditTeamInfoForm(forms.ModelForm):
             'game',
             'img'
         ]
+
+class TeamRecruitForm(forms.ModelForm):
+
+    class Meta:
+        
+        model = TeamRecruitPost
+        fields = [
+            'heading',
+            'img_cover',
+            'description',
+            'start_date',
+            'end_date'
+        ]
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+    def save(self,commit=True):
+        recruit = super(TeamRecruitForm, self).save(commit=False)
+        recruit.heading = self.cleaned_data['heading']
+        recruit.img_cover = self.cleaned_data['img_cover']
+        recruit.description = self.cleaned_data['description']
+        if commit:
+            recruit.save()
+        
+        return recruit

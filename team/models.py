@@ -30,3 +30,12 @@ class TeamMember(models.Model):
         unique_together = (("team","member"))
     def __str__(self):
         return  self.member.username + " - " + self.team.name + " - " + self.role.name
+
+class TeamRecruitPost(models.Model):
+    # recruit_id = models.CharField(max_length=4)
+    heading = models.CharField(max_length=50)
+    img_cover = models.CharField(max_length=100)
+    description = models.CharField(max_length=100)
+    start_date = models.DateField(auto_now_add='')
+    end_date = models.DateField(auto_now_add='')
+    # team_name = models.CharField(max_length=20)

@@ -1,11 +1,26 @@
 {% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
 {% load staticfiles %}
 {% block body %}
-
+{% load widget_tweaks %}
 <div class="container">
     <br><br>
-    <form class="controls" action="#">
-        Heading : <input class="input" type="text"><br>
+    <form class="controls" method="POST">
+        {% csrf_token %}
+            {% for field in form %}
+                {{ field.label_tag }}
+                {{ field|add_class:"label input" }}
+                {{ field.errors }}
+            {% endfor %}
+        
+        <br><br>
+        <div style="float:right;">
+            <button class="button" type="submit">Create</button>
+            <button class="button" type="reset">Clear</button>
+        </div>
+        {{text}}
+    </form>
+    <br><br><br><br>
+</div><!-- Heading : <input class="input" type="text" name="heading"><br>
         Image Cover : <div class="file">
             <label class="file-label">
                 <input class="file-input" type="file" name="resume">
@@ -21,14 +36,6 @@
         </div>
         Description : <br> <textarea class="textarea" placeholder="Description" name="" id="" cols="30" rows="10"></textarea><br>
         Start-Date : <input class="input" type="date" name="" id="">
-        End-Date : <input class="input" type="date" name="" id="">
-        <br><br>
-        <div style="float:right;">
-            <button class="button" type="submit">Create</button>
-            <button class="button" type="reset">Clear</button>
-        </div>
-    </form>
-    <br><br><br><br>
-</div>
+        End-Date : <input class="input" type="date" name="" id=""> -->
 
 {% endblock %}
