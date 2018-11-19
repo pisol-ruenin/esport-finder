@@ -23,7 +23,7 @@
 <div class="container">
     <br><br>
     <strong style="font-size:2em;">
-        Find Team
+        Find User
     </strong>
     <br><br>
     <div>
@@ -42,12 +42,18 @@
             <th>Profile</th>
             <th>Name</th>
             <th>Games</th>
+            <th>Role</th>
+            <th>Rank</th>
+            <th>Province</th>
         </tr>
-        {% for team in filter.qs %}
-        <tr onclick="document.location = '/team/{{ team.pk }}/';">
-            <td><img class="profile_lteam" src="{{ team.img.url }}" alt=""></td>
-            <td>{{ team.name }}</td>
-            <td><img class="profile_lteam" src="{{ team.game.img.url }}" alt="">{{team.game.name}}</td>
+        {% for user in filter.qs %}
+        <tr onclick="document.location = '/member/player/{{ user.user.pk }}/';">
+            <td><img class="profile_lteam" src="{{ user.user.userprofile.profile_img.url }}" alt=""></td>
+            <td>{{ user.user.first_name }} {{user.user.last_name}}</td>
+            <td><img class="profile_lteam" src="{{ user.user.userprofile.game.img.url }}" alt="">{{user.user.userprofile.game.name}}</td>
+            <td>{{ user.user.userprofile.role.name }}</td>
+            <td>{{ user.user.userprofile.rank.name }}</td>
+            <td>{{ user.user.userprofile.province }}</td>
         </tr>
         {% endfor %}
     </table>

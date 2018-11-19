@@ -9,7 +9,7 @@ from .models import UserProfile,Post,Follow,Mail
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-# Create your views here.
+from .filters import MemberFilter
 
 
 class SignUp(generic.CreateView):
@@ -88,7 +88,7 @@ class Following(generic.View):
         follow.follower = follower
         follow.following = following
         follow.save()
-        reverse_lazy('member:player',kwargs={'pk': self.kwargs['pk']})
+        # reverse_lazy('member:player',kwargs={'pk': self.kwargs['pk']})
         return HttpResponseRedirect(reverse_lazy('member:player',kwargs={'pk': self.kwargs['pk']}))
 
 class Unfollow(generic.View):
@@ -104,12 +104,7 @@ class Unfollow(generic.View):
 
 class MailBox(generic.ListView):
     model = Mail
-    # context_object_name = "mail_list"
     template_name = 'member/mail.html'
-    # def get_queryset(self):
-    #     mail = Mail.objects.filter(reciever=self.request.user)[::-1]
-    #     print(mail)
-    #     return mail
     def get_context_data(self, **kwargs):
         context = super(MailBox,self).get_context_data(**kwargs)
         context['mail_list'] = Mail.objects.filter(reciever=self.request.user)[::-1]
@@ -181,4 +176,13 @@ class DeleteMail(generic.DeleteView):
     redirect_field_name = 'redirect_to'
     def get(self, *args, **kwargs):
         return self.delete(*args, **kwargs)
+
+class FilterUser(generic.ListView):
+    model = UserProfile
+    template_name = 'member/search_user.html'
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = MemberFilter(self.request.GET,queryset=self.get_queryset())
+        return context
 

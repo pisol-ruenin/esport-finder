@@ -34,6 +34,7 @@ TIME_ZONE = 'Asia/Bangkok'
 # Application definition
 
 INSTALLED_APPS = [
+    'django_filters',
     'widget_tweaks',
     'member.apps.MemberConfig',
     'team.apps.TeamConfig',

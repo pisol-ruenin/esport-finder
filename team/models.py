@@ -13,10 +13,20 @@ class Team(models.Model):
     class Meta:
         unique_together = (("game", "name"))
 
+    def __str__(self):
+        return self.name + " - " + self.game.name
+
+class TeamRole(models.Model):
+    name = models.CharField(max_length=20)
+    def __str__(self):
+        return self.name
+
 class TeamMember(models.Model):
     team = models.ForeignKey(Team,on_delete=models.CASCADE)
     member = models.ForeignKey(User,on_delete=models.CASCADE)
+    role = models.ForeignKey(TeamRole,models.SET_NULL,null=True)
     join_date = models.DateField(auto_now_add=True)
     class Meta:
         unique_together = (("team","member"))
-
+    def __str__(self):
+        return  self.member.username + " - " + self.team.name + " - " + self.role.name

@@ -26,13 +26,19 @@ class GameRole(models.Model):
     class Meta:
         unique_together = (("game_name","role_name"))
 
+class Rank(models.Model):
+    name = models.CharField(max_length=30,primary_key=True)
+    def __str__(self):
+        return self.name
+
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
     codename = models.CharField(max_length=10,blank=True)
     streaming = models.CharField(max_length=30,blank=True)
     tel = models.CharField(max_length=10,blank=True)
     province = models.ForeignKey(Country,models.SET_NULL,blank=True,null=True)
-    rank = models.CharField(max_length=30,blank=True)
+    rank = models.ForeignKey(Rank,models.SET_NULL,blank=True,null=True)
     game = models.ForeignKey(Game,models.SET_NULL,blank=True,null=True)
     role = models.ForeignKey(Role,models.SET_NULL,blank=True,null=True)
     birtdate = models.DateField(null=True)
@@ -62,3 +68,4 @@ class Follow(models.Model):
     date = models.DateField(auto_now_add=True)
     class Meta:
         unique_together = (("follower", "following"))
+

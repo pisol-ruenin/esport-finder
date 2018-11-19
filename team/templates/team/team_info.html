@@ -3,40 +3,94 @@
 {% block body %}
 
 <div class="container"><br>
-    <!-- logo team -->
-    <img src="{% static 'img/profile/Microsoft.png' %}" alt="" width="100px;">
-    <p>Team Name</p>
-    <p>Bio of team</p>
+    
+        <div class="columns is-multiline">
+            <div class="column is-one-quarter"><center><img class="image is-128x128" src="{{team.img.url}}" alt="" width="100px;"></center></div>
+            <div class="column is-four-fifths" style="font-size:2em;">
+                <p>
+                <h1 class="title is-1">{{ team.name }}</h1>
+                <h6 class="subtitle is-6">{{team.game.name}}<br><a href="{{team.website}}">{{team.website}}</a></h6>
+                {% ifequal ck_founder 1 %}
+                <a href="{% url 'team:team_editinfo' team.pk %}"><button class="button" >Edit Info</button></a>
+                {% endifequal %}
+            </p>
+            </div>
+                
+                <div class="column is-full notification">
+                        <div class="column is-full">
+                                <p><h4 class="title is-4">Bio</h2></p>
+                               {{ team.description }}
+                        </div>
+                        
+                        <div class="column is-full">
+                                <p><h4 class="title is-4">Manager</h2></p>
+                            <div class="columns">
+                                    {% if team_manager %}
+                                    {% for member in team_manager %}
+                                <div class="column is-one-quarter">
+                                    
+                                        <figure class="image is-128x128">
+                                            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                                        </figure>
+                                        <a href="{% url 'member:player' member.member.pk %}">{{member.member.userprofile.codename}}</a>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                            <div class="column is-one-quarter"> 
+                                    <p>None</p>
+                            </div>
+                            
+                            {% endif %}
+                            </div>
+                        </div>
+                        <div class="column is-full">
+                                <p><h4 class="title is-4">Player</h2></p>
+                                <div class="columns">
+                                        {% if team_member %}
+                                        {% for member in team_member %}
+                                    <div class="column is-one-quarter">
+                                            <center>
+                                                    <a href="{% url 'member:player' member.member.pk %}"><figure class="image is-128x128">
+                                                <img class="is-rounded" src="{{member.member.userprofile.profile_img.url}}">
+                                            </figure>
+                                            {{member.member.userprofile.codename}}
+                                            <br>
+                                            @{{member.member.username}}</a>
+                                        </center>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                None
+                                {% endif %}
+                                </div>
+                            </div>
+                </div>
+                
+        
+            
+        </div>
     <div>
-        <p>Game</p>
-        <img src="{% static 'img/game/fifaonline4.png' %}" alt="" width="200px;">
-    </div>
-    <div>
-        <p>Member</p>
+            <!-- <p>Manager</p>
+            <ul>
+                {% if team_manager %}
+                {% for member in team_manager %}
+                <li>
+                   <a href="{% url 'member:player' member.member.pk %}">{{member.member.userprofile.codename}}</a>
+                </li>
+                {% endfor %}
+                {% else %}
+                <li>None</li>
+                {% endif %}
+            </ul> -->
+        <!-- <p>Player</p>
         <ul>
+            {% for member in team_member %}
             <li>
-                Name 1 Ex Name
+                <a href="{% url 'member:player' member.member.pk %}">{{member.member.userprofile.codename}}</a>
             </li>
-            <li>
-                Name 2 Ex Name
-            </li>
-            <li>
-                Name 3 Ex Name
-            </li>
-            <li>
-                Name 4 Ex Name
-            </li>
-            <li>
-                Name 5 Ex Name
-            </li>
-        </ul>
-    </div>
-    <div>
-        <p>Sponsor</p>
-        <img src="{% static 'img/profile/google.jpg' %}" alt="" width="50px;">
-        <!-- <img src="{% static 'img/profile/devteam_kik.jpg' %}" alt="" width="50px;">
-        <img src="{% static 'img/profile/devteam_kong.jpg' %}" alt="" width="50px;"> -->
-    </div>
+            {% endfor %}
+        </ul> -->
+    <!-- </div> -->
 </div>
 
 {% endblock %}

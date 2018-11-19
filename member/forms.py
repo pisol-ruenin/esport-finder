@@ -39,6 +39,10 @@ class RegistrationForm(UserCreationForm):
             'password1',
             'password2',
         ]
+        help_texts={
+            'username':'150 characters or fewer. Letters, digits and @/./+/-/_ only.',
+            'password1':'Your password can\'t be too similar to your other personal information.<br>Your password must contain at least 8 characters.<br>Your password can\'t be a commonly used password.<br>Your password can\'t be entirely numeric.'
+        }
     def save(self,commit=True):
         user = super(RegistrationForm, self).save(commit=False)
         user.first_name = self.cleaned_data['first_name']

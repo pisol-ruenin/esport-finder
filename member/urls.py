@@ -16,5 +16,6 @@ urlpatterns = [
     path('mail/',views.MailBox.as_view(),name='mail'),
     path('mail/send/',views.SendMail.as_view(),name='send_mail'),
     path('mail/<int:pk>/',views.MailDetail.as_view(),name='mail_detail'),
-    path('mail/<int:pk>/delete/',views.DeleteMail.as_view(),name='delete_mail')
+    path('mail/<int:pk>/delete/',views.DeleteMail.as_view(),name='delete_mail'),
+    path('search/',views.FilterUser.as_view(),name='member_search')
 ]
