@@ -74,11 +74,18 @@ def team_list(request):
 
 class team_recruitment(generic.CreateView):
     template_name = 'team/team_recruitment.html'
-    context_object_name = "feed"
-    # def get(self,request):
-    #     posts = TeamRecruitPost.objects.all()
-    #     args = {'posts':posts}
-    #     return render(request,self.template_name,args)
+    model = TeamRecruitPost
+    def get_context_data(self, **kwargs):
+        context = super(team_recruitment,self).get_context_data(**kwargs)
+        context['team_recruitment'] = TeamRecruitPost.objects.get(pk=self.kwargs['pk'])
+        return context
+    def dispatch(self,*args,**kwargs):
+        teamrc = TeamRecruitPost.objects.get(pk=self.kwargs['pk'])
+        if self.request.user.pk!=teamrc.reciever.pk:
+            return redirect('team:team_recruitment')
+
+        return super(team_recruitment, self).dispatch(*args, **kwargs)
+
 
 class team_recruitment_list(generic.ListView):
     template_name = 'team/team_recruitment_list.html'
