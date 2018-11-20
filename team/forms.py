@@ -47,7 +47,7 @@ class EditTeamInfoForm(forms.ModelForm):
         ]
 
 class TeamRecruitForm(forms.ModelForm):
-
+    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'textarea'}))
     class Meta:
         
         model = TeamRecruitPost

@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from .filters import TeamFilter
 from team.forms import TeamRecruitForm
 from team.models import TeamRecruitPost
+from django.shortcuts import redirect
 
 class Teami(generic.View):
     template_name = 'team/teami.html'
@@ -72,18 +73,18 @@ def team_manage(request):
 def team_list(request):
     return render(request, 'team/team_list.html')
 
-class team_recruitment(generic.CreateView):
+class team_recruitment(generic.DetailView):
     template_name = 'team/team_recruitment.html'
     model = TeamRecruitPost
     def get_context_data(self, **kwargs):
         context = super(team_recruitment,self).get_context_data(**kwargs)
         context['team_recruitment'] = TeamRecruitPost.objects.get(pk=self.kwargs['pk'])
         return context
+
     def dispatch(self,*args,**kwargs):
         teamrc = TeamRecruitPost.objects.get(pk=self.kwargs['pk'])
-        if self.request.user.pk!=teamrc.reciever.pk:
-            return redirect('team:team_recruitment')
-
+        if self.request.user.pk==teamrc.id:
+            return redirect('team:teamrc/<pk>')
         return super(team_recruitment, self).dispatch(*args, **kwargs)
 
 

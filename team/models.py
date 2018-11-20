@@ -33,6 +33,7 @@ class TeamMember(models.Model):
 
 class TeamRecruitPost(models.Model):
     # recruit_id = models.CharField(max_length=4)
+    id = models.IntegerField(primary_key=True)
     heading = models.CharField(max_length=50)
     img_cover = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
