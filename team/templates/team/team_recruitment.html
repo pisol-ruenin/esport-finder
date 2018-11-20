@@ -1,3 +1,11 @@
+<style type="text/css">
+    .Heading{
+        font-size: 2em !important;
+    }
+    .Heading2{
+        font-size: 1.5em !important;
+    }
+</style>
 {% extends user.is_authenticated|yesno:"base.html,base_public.html" %}
 {% load staticfiles %}
 {% block body %}
@@ -5,19 +13,21 @@
 <div class="container">
     <br><br>
 
-<p style="font: size 2em !important;">Fifa Online 4 กับทีมไอนีทโมจิ!</p>
-<p>ทีม ไอนีทโมจิ</p>
+<div class="Heading">Fifa Online 4 กับทีมไอนีทโมจิ!</div>
+<p class="Heading2">ทีม ไอนีทโมจิ</p>
 <img src="#" alt="">
-<p> Description</p>
+<br>
+<p><strong> Description</strong></p>
 <P>
     รับสมัครนักกีฬา E-Sports เกมส์ Fifa Online 4 กับทีมไอนีทโมจิ สนับสนุนโดย
     โมจิวัฒนพร
     <br>
-    เงินเดือน : 9,000 บาท
+    เงินเดือน : 9,000 บาท {{teamrc.id}}
 </P>
+
 ิ<br>
-<p>Start Date : <div>10 August 2018</div></p>
+<p><strong>Start Date : </strong><div>10 August 2018</div></p>
 <br>
-<p>End Date : <div>20 November 2018</div></p>
+<p><strong>End Date : </strong><div>20 November 2018</div></p>
 </div>
 {% endblock %}

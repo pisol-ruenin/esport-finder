@@ -53,7 +53,6 @@ class TeamRecruitForm(forms.ModelForm):
         model = TeamRecruitPost
         fields = [
             'heading',
-            'img_cover',
             'description',
             'start_date',
             'end_date'
@@ -65,7 +64,6 @@ class TeamRecruitForm(forms.ModelForm):
     def save(self,commit=True):
         recruit = super(TeamRecruitForm, self).save(commit=False)
         recruit.heading = self.cleaned_data['heading']
-        recruit.img_cover = self.cleaned_data['img_cover']
         recruit.description = self.cleaned_data['description']
         if commit:
             recruit.save()

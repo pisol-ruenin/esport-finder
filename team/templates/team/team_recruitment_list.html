@@ -80,7 +80,9 @@
             <td>{{ TeamRecruitPost.pk }}</td>
             <td>{{TeamRecruitPost.heading}}</td>
             <td>{{TeamRecruitPost.start_date}}</td>
-            <td>{{TeamRecruitPost.end_date}}</td>
+            <td>{{TeamRecruitPost.end_date}}
+                <button onclick="document.location = '{{ TeamRecruitPost.pk }}/';">Detail</button>
+            </td>
         </tr>
         {% endfor %}
     </table>
