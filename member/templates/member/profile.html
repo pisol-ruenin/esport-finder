@@ -160,7 +160,7 @@
                     {% for field in form %}
                         {{ field|add_class:"textarea post_input"|attr:"placeholder:What's up!"|attr:"rows:3" }}
                     {% endfor %}
-                    <button type="submit" id="post" class="button" style="float:right;">Post</button>
+                    <button type="submit" id="post" class="button is-info" style="float:right;">Post</button>
                 </form>
             </div><br><br>
             <!-- section -->
@@ -171,9 +171,8 @@
                     <p><strong>{{post.poster.first_name}} {{post.poster.last_name}}</strong></p>
                     <p>{{ post.datetime}}</p>
                     <p>{{ post.msg|readmore:150 }}</p>
-                    <div style="float:right;"><button class="button">Edit</button>
-                    <a href="{% url 'member:delete_post' post.pk %}"><button class="button">Delete</button></a></div>
-
+                    <div style="float:right;"><button class="button is-link">Edit</button>
+                    <a href="{% url 'member:delete_post' post.pk %}"><button class="button is-danger">Delete</button></a></div>
                 </div>
             </div>
             {% endfor %}
