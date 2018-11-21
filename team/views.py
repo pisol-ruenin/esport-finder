@@ -11,16 +11,20 @@ from team.forms import TeamRecruitForm
 from team.models import TeamRecruitPost
 from django.shortcuts import redirect
 
-class Teami(generic.View):
+class Teami(generic.ListView):
     template_name = 'team/teami.html'
-    # def get_context_data(self,*atg,**kwargs):
-    #     context['ck_founder'] = len(Team.objects.filter(founder=self.request.user))
-    #     return context
+
+    def get_queryset(self):
+        return 1
+
     def dispatch(self,*args,**kwargs):
-        member = TeamMember.objects.get(member=self.request.user)
-        if member:
-            return HttpResponseRedirect(reverse_lazy('team:team_info',kwargs={'pk': member.team.pk}))
-        return super(Teami, self).dispatch(*args, **kwargs)
+        member = 0
+        try:
+            member = TeamMember.objects.get(member=self.request.user)
+        except:
+            return super(Teami, self).dispatch(*args, **kwargs)
+        return HttpResponseRedirect(reverse_lazy('team:team_info',kwargs={'pk': member.team.pk}))
+        
 
 class CreateTeam(generic.CreateView):
     form_class = CreateTeamForm

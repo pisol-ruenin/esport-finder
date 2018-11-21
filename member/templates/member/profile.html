@@ -171,7 +171,7 @@
                     <p><strong>{{post.poster.first_name}} {{post.poster.last_name}}</strong></p>
                     <p>{{ post.datetime}}</p>
                     <p>{{ post.msg|readmore:150 }}</p>
-                    <div style="float:right;"><button class="button is-link">Edit</button>
+                    <div style="float:right;">
                     <a href="{% url 'member:delete_post' post.pk %}"><button class="button is-danger">Delete</button></a></div>
                 </div>
             </div>

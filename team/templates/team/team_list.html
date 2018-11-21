@@ -44,7 +44,7 @@
             <th>Games</th>
         </tr>
         {% for team in filter.qs %}
-        <tr onclick="document.location = '/team/{{ team.pk }}/';">
+        <tr onclick="document.location = '/team/team_info/{{ team.pk }}/';">
             <td><img class="profile_lteam" src="{{ team.img.url }}" alt=""></td>
             <td>{{ team.name }}</td>
             <td><img class="profile_lteam" src="{{ team.game.img.url }}" alt="">{{team.game.name}}</td>

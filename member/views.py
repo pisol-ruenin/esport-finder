@@ -135,7 +135,10 @@ class Home(generic.ListView):
         for i in following:
             temp = Post.objects.filter(poster=i.following.id)
             feed = feed | temp
-        return feed.distinct().order_by('datetime')[::-1]
+        try:
+            return feed.distinct().order_by('datetime')[::-1]
+        except:
+            return None
 
 class EditProfile(generic.UpdateView):
     template_name = 'member/edit_profile.html'
