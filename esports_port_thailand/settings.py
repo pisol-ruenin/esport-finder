@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+AUTHENTICATION_BACKENDS = ('esports_port_thailand.backends.CaseInsensitiveModelBackend', )
+
 BOOTSTRAP4 = {
     'include_jquery': True,
 }

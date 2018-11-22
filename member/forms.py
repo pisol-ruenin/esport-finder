@@ -43,6 +43,12 @@ class RegistrationForm(UserCreationForm):
             'username':'150 characters or fewer. Letters, digits and @/./+/-/_ only.',
             'password1':'Your password can\'t be too similar to your other personal information.<br>Your password must contain at least 8 characters.<br>Your password can\'t be a commonly used password.<br>Your password can\'t be entirely numeric.'
         }
+    def clean(self):
+        cleaned_data = super(RegistrationForm, self).clean()
+        username = cleaned_data.get('username')
+        if username and User.objects.filter(username__iexact=username).exists():
+            self.add_error('username', 'A user with that username already exists.')
+        return cleaned_data
     def save(self,commit=True):
         user = super(RegistrationForm, self).save(commit=False)
         user.username = self.cleaned_data['username'].lower()
@@ -76,6 +82,7 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             'birtdate': forms.DateInput(attrs={'type': 'date'}),
         }
+    
         # widget = {'birtdate':forms.DateInput(attrs={'class':'datepicker'})}
 
 
